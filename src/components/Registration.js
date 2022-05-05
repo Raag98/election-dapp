@@ -7,6 +7,10 @@ export default function Registration() {
     const [wallet, setWallet] = useState();
     const [approved, setApproved] = useState(false);
 
+    const update = () => {
+      console.log("Update Values!");
+    }
+
     return (
       <div className="registration">
         <h1>Register Yourself!</h1>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'
 
 export default function Sidebar() {
@@ -6,7 +7,7 @@ export default function Sidebar() {
     const { currentUser, logOut } = useAuth();
     const [name, setName] = useState("Members");
     const [manager, setManager] = useState("No Idea!")
-    const history = useHistory();
+    const history = useNavigate();
 
     return (
       <div className="sidebar">

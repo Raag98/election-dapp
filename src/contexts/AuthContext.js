@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { auth } from '../firebase/firebase'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 
 const AuthContext = React.createContext();
 
@@ -21,7 +22,7 @@ export function AuthProvider({children}) {
     }
 
     function logOut() {
-      history.push("/");
+      Navigate("/");
       return signOut(auth);
     }
 
@@ -38,19 +39,19 @@ export function AuthProvider({children}) {
         setLoading(false);
       });
 
-      const val = {
-        currentUser,
-        signUp,
-        signIn,
-        logOut,
-        history,
-      }
-
       return unsubscribe;
     }, []);
 
+    const value = {
+      currentUser,
+      signUp,
+      signIn,
+      logOut,
+      history,
+    };
+
     return (
-        <AuthContext.Provider value={val}>
+        <AuthContext.Provider value={value}>
             {!loading && children}
         </AuthContext.Provider>
     )

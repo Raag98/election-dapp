@@ -1,11 +1,33 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import "./Login.css";
 
-class Login extends Component {
-  render() {
-    return (
-      <div className="Login">
-        <div className="loginAside" />
+const Login = () => {
+
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const {signIn, currentUser, history} = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      setError('');
+      setLoading(true);
+      await signIn(email, password);
+      Navigate("/dashboard");
+      console.log("Login successful", currentUser);
+    } catch {
+      setError('Login Failed')
+    }
+  }
+
+  return (
+    <div className="Login">
+      <div className="loginAside" />
         <div className="loginForm">
           <div className="loginFormCenter">
             <p className="loginFormTitle">Log In </p>
@@ -18,8 +40,9 @@ class Login extends Component {
                   type="email"
                   id="email"
                   className="loginFormFieldInput"
-                  placeholder="Enter your email"
-                  name="email"
+                  placeholder="Enter your Email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </div>
 
@@ -32,12 +55,13 @@ class Login extends Component {
                   id="password"
                   className="loginFormFieldInput"
                   placeholder="Enter your password"
-                  name="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </div>
 
               <div className="loginFormField">
-                <button className="loginFormFieldButton">Log In</button>
+                <button className="loginFormFieldButton" onClick={handleLogin}>Log In</button>
                 {/* <Link to="/" className="loginFormFieldLink">
               Create an account
             </Link> */}
@@ -48,6 +72,5 @@ class Login extends Component {
       </div>
     );
   }
-}
 
 export default Login;

@@ -1,30 +1,28 @@
-import {useState, useEffect} from 'react';
-import { Router} from 'react-router';
 import { Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Login from './components/Login.js';  
 import WelcomePage from './components/WelcomePage';
 import './App.css';
+import Dashboard from './components/Dashboard';
 
 const App = () => {
   return (
     <AuthProvider>
       <div className="App">
-        <Router>
-          <Switch>
-            <Route exact path="/" component={WelcomePage} />
+        <Routes>
+          <Route exact path="/" component={WelcomePage} />
 
-            <Route path="/login" component={Login} />
+          <Route path="/login" component={Login} />
+          <Route path="/dashboard" component={Dashboard} />
             {/* <Route path="/signup" component={Signup} />
             <Route exact path="/admin-login" component={AdminLogin} /> */}
-            
+
             {/* <Route path="/votes">
               <div className="admin-home">
                 <Admin />
                 <Votes />
               </div>
             </Route> */}
-
 
             {/* <Route path="/admin/home">
               <div className="admin-home">
@@ -47,7 +45,6 @@ const App = () => {
               </div>
             </Route> */}
 
-
             {/* <Route path="/voting">
               <div className="voting-home">
                 <Home />
@@ -68,9 +65,7 @@ const App = () => {
                 <Registration />
               </div>
             </Route> */}
-
-          </Switch>
-        </Router>
+        </Routes>
       </div>
     </AuthProvider>
   );
