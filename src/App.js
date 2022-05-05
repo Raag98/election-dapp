@@ -1,10 +1,74 @@
+import {useState, useEffect} from 'react';
+import { AuthProvider } from './contexts/AuthContext';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <p>Dapp building in process!!</p>
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+
+            <Route path="/login" component={Login} />
+
+            {/* <Route path="/votes">
+              <div className="admin-home">
+                <Admin />
+                <Votes />
+              </div>
+            </Route> */}
+
+            <Route exact path="/admin/login" component={AdminLogin} />
+
+            {/* <Route path="/admin/home">
+              <div className="admin-home">
+                <Admin />
+                <RegisterVoter />
+              </div>
+            </Route> */}
+
+            {/* <Route path="/admin/phase">
+              <div className="admin-home">
+                <Admin />
+                <Phase />
+              </div>
+            </Route> */}
+
+            {/* <Route path="/admin/add">
+              <div className="admin-home">
+                <Admin />
+                <AddCandidate />
+              </div>
+            </Route> */}
+
+            <Route path="/signup" component={Signup} />
+
+            {/* <Route path="/voting">
+              <div className="voting-home">
+                <Home />
+                <Voting />
+              </div>
+            </Route> */}
+
+            {/* <Route path="/results">
+              <div className="voting-home">
+                <Home />
+                <Results />
+              </div>
+            </Route> */}
+
+            {/* <Route path="/home">
+              <div className="voting-home">
+                <Home />
+                <Registration />
+              </div>
+            </Route> */}
+
+          </Switch>
+        </Router>
+      </div>
+    </AuthProvider>
   );
 }
 
