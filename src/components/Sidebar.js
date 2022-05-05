@@ -17,8 +17,12 @@ export default function Sidebar() {
           <Link to="">
             <li>Registration</li>
           </Link>
-          <li>Voting</li>
-          <li>Results</li>
+          <Link to="">
+            <li>Voting</li>
+          </Link>
+          <Link to="">
+            <li>Results</li>
+          </Link>
           <li onClick={logOut}>Logout</li>
         </ul>
 

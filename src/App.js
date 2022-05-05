@@ -3,6 +3,7 @@ import { Router} from 'react-router';
 import { Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Login from './components/Login.js';  
+import WelcomePage from './components/WelcomePage';
 import './App.css';
 
 const App = () => {
@@ -10,12 +11,13 @@ const App = () => {
     <AuthProvider>
       <div className="App">
         <Router>
-          <Routes>
-            {/* <Route exact path="/" component={Home} /> */}
+          <Switch>
+            <Route exact path="/" component={WelcomePage} />
 
             <Route path="/login" component={Login} />
-
-
+            {/* <Route path="/signup" component={Signup} />
+            <Route exact path="/admin-login" component={AdminLogin} /> */}
+            
             {/* <Route path="/votes">
               <div className="admin-home">
                 <Admin />
@@ -23,7 +25,6 @@ const App = () => {
               </div>
             </Route> */}
 
-            {/* <Route exact path="/admin/login" component={AdminLogin} /> */}
 
             {/* <Route path="/admin/home">
               <div className="admin-home">
@@ -46,7 +47,6 @@ const App = () => {
               </div>
             </Route> */}
 
-            {/* <Route path="/signup" component={Signup} /> */}
 
             {/* <Route path="/voting">
               <div className="voting-home">
@@ -69,7 +69,7 @@ const App = () => {
               </div>
             </Route> */}
 
-          </Routes>
+          </Switch>
         </Router>
       </div>
     </AuthProvider>
