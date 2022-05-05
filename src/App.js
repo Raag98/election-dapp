@@ -8,10 +8,12 @@ const App = () => {
       <div className="App">
         <Router>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={WelcomePage} />
 
             <Route path="/login" component={Login} />
-
+            <Route path="/signup" component={Signup} />
+            <Route exact path="/admin-login" component={AdminLogin} />
+            
             {/* <Route path="/votes">
               <div className="admin-home">
                 <Admin />
@@ -19,7 +21,6 @@ const App = () => {
               </div>
             </Route> */}
 
-            <Route exact path="/admin/login" component={AdminLogin} />
 
             {/* <Route path="/admin/home">
               <div className="admin-home">
@@ -42,7 +43,6 @@ const App = () => {
               </div>
             </Route> */}
 
-            <Route path="/signup" component={Signup} />
 
             {/* <Route path="/voting">
               <div className="voting-home">
