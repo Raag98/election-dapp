@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { auth } from '../firebase/firebase'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const AuthContext = React.createContext();
 
@@ -10,7 +10,7 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const history = useHistory();
+    const history = useNavigate();
 
     function signUp(email, password, name) {
       return createUserWithEmailAndPassword(auth, email, password);
