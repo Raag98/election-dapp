@@ -10,7 +10,7 @@ export default function Dashboard() {
       <Sidebar />
       <Router>
         <Routes>
-          <Route path="/registration" component={Registration} />
+          <Route path="/registration" element={<Registration />} />
           {/* <Route path="/voting" component={Voting} /> */}
           {/* <Route path="/results" component={Results} /> */}
         </Routes>

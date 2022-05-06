@@ -1,9 +1,10 @@
-import { Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import Login from './components/Login.js';  
-import WelcomePage from './components/WelcomePage';
-import './App.css';
-import Dashboard from './components/Dashboard';
+import { Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import Login from "./components/Login.js";
+import Signup from "./components/Signup";
+import WelcomePage from "./components/WelcomePage";
+import "./App.css";
+import Dashboard from "./components/Dashboard";
 
 const App = () => {
   return (
@@ -14,52 +15,52 @@ const App = () => {
 
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-            {/* <Route path="/signup" component={Signup} />
-            <Route exact path="/admin-login" component={AdminLogin} /> */}
+          <Route path="/signup" element={<Signup />} />
+            {/* <Route exact path="/admin-login" element={<AdminLogin />} /> */}
 
-            {/* <Route path="/votes">
+          {/* <Route path="/votes">
               <div className="admin-home">
                 <Admin />
                 <Votes />
               </div>
             </Route> */}
 
-            {/* <Route path="/admin/home">
+          {/* <Route path="/admin/home">
               <div className="admin-home">
                 <Admin />
                 <RegisterVoter />
               </div>
             </Route> */}
 
-            {/* <Route path="/admin/phase">
+          {/* <Route path="/admin/phase">
               <div className="admin-home">
                 <Admin />
                 <Phase />
               </div>
             </Route> */}
 
-            {/* <Route path="/admin/add">
+          {/* <Route path="/admin/add">
               <div className="admin-home">
                 <Admin />
                 <AddCandidate />
               </div>
             </Route> */}
 
-            {/* <Route path="/voting">
+          {/* <Route path="/voting">
               <div className="voting-home">
                 <Home />
                 <Voting />
               </div>
             </Route> */}
 
-            {/* <Route path="/results">
+          {/* <Route path="/results">
               <div className="voting-home">
                 <Home />
                 <Results />
               </div>
             </Route> */}
 
-            {/* <Route path="/home">
+          {/* <Route path="/home">
               <div className="voting-home">
                 <Home />
                 <Registration />
@@ -69,6 +70,6 @@ const App = () => {
       </div>
     </AuthProvider>
   );
-}
+};
 
 export default App;
