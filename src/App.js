@@ -2,9 +2,11 @@ import { Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./components/Login.js";
 import Signup from "./components/Signup";
+import AdminLogin from "./components/AdminLogin";
 import WelcomePage from "./components/WelcomePage";
-import "./App.css";
 import Dashboard from "./components/Dashboard";
+
+import "./App.css";
 
 const App = () => {
   return (
@@ -16,7 +18,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<Signup />} />
-            {/* <Route exact path="/admin-login" element={<AdminLogin />} /> */}
+          <Route exact path="/admin-login" element={<AdminLogin />} />
 
           {/* <Route path="/votes">
               <div className="admin-home">
