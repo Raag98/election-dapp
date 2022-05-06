@@ -1,9 +1,34 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./SignUp.css";
 
 const Signup = () => {
+
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const {signUp, updateProf} = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      setError("");
+      setLoading(true);
+      await signUp(email, password);
+      updateProf(name);
+      console.log("Sign up successful");
+      Navigate("/dashboard");
+    } catch {
+      setError("Failed to create an account");
+    }
+    setLoading(false);
+  }
+
   return (
     <div className="SignUp" id="Signup">
       <div className="signUpAside" />
@@ -20,6 +45,8 @@ const Signup = () => {
                 id="name"
                 className="signUpFormFieldInput"
                 placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
@@ -32,6 +59,8 @@ const Signup = () => {
                 id="email"
                 className="signUpFormFieldInput"
                 placeholder="Enter your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -44,14 +73,17 @@ const Signup = () => {
                 id="password"
                 className="signUpFormFieldInput"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <div className="signUpFormField">
-              <button className="signUpFormFieldButton">Sign Up</button>
-              {/* <Link to="/" className="signUpFormFieldLink">
-              Create an account
-            </Link> */}
+              <button className="signUpFormFieldButton" onClick={handleSubmit}>Sign Up</button>
+              Already have an Account?
+              <Link to="/login" className="signUpFormFieldLink">
+                Login
+              </Link>
             </div>
           </form>
         </div>

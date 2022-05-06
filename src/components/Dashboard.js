@@ -5,12 +5,13 @@ import Registration from "./Registration";
  
 
 export default function Dashboard() {
+
   return (
     <div className="dashboard">
       <Sidebar />
       <Router>
         <Routes>
-          <Route path="/registration" element={<Registration />} />
+          <Route path="/" element={<Registration />} />
           {/* <Route path="/voting" component={Voting} /> */}
           {/* <Route path="/results" component={Results} /> */}
         </Routes>

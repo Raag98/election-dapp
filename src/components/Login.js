@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./Login.css";
 
@@ -7,7 +7,7 @@ const Login = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const {signIn, currentUser, history} = useAuth();
+  const {signIn, currentUser} = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -62,9 +62,9 @@ const Login = () => {
 
               <div className="loginFormField">
                 <button className="loginFormFieldButton" onClick={handleLogin}>Log In</button>
-                {/* <Link to="/" className="loginFormFieldLink">
-              Create an account
-            </Link> */}
+                <Link to="/signup" className="loginFormFieldLink">
+                  Create an account
+                </Link>
               </div>
             </form>
           </div>

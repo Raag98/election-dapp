@@ -5,23 +5,22 @@ import { useAuth } from '../contexts/AuthContext'
 export default function Sidebar() {
 
     const { currentUser, logOut } = useAuth();
-    const [name, setName] = useState("Members");
     const [manager, setManager] = useState("No Idea!")
     const history = useNavigate();
 
     return (
       <div className="sidebar">
-        <h3>Welcome {name}</h3>
+        <h3>Welcome {currentUser.displayName}</h3>
         <hr />
 
         <ul>
-          <Link to="">
+          <Link to="/">
             <li>Registration</li>
           </Link>
-          <Link to="">
+          <Link to="/voting">
             <li>Voting</li>
           </Link>
-          <Link to="">
+          <Link to="/results">
             <li>Results</li>
           </Link>
           <li onClick={logOut}>Logout</li>
