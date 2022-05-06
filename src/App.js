@@ -10,10 +10,10 @@ const App = () => {
     <AuthProvider>
       <div className="App">
         <Routes>
-          <Route exact path="/" component={WelcomePage} />
+          <Route exact path="/" element={<WelcomePage />} />
 
-          <Route path="/login" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
             {/* <Route path="/signup" component={Signup} />
             <Route exact path="/admin-login" component={AdminLogin} /> */}
 
