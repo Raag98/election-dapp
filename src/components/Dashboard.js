@@ -12,8 +12,8 @@ export default function Dashboard() {
       <Router>
         <Routes>
           <Route path="/" element={<Registration />} />
-          {/* <Route path="/voting" component={Voting} /> */}
-          {/* <Route path="/results" component={Results} /> */}
+          {/* <Route path="/voting" component={<Voting />} /> */}
+          {/* <Route path="/results" component={<Results />} /> */}
         </Routes>
       </Router>
     </div>
