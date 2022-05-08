@@ -80,9 +80,9 @@ const Signup = () => {
 
             <div className="signUpFormField">
               <button className="signUpFormFieldButton" onClick={handleSubmit}>Sign Up</button>
-              Already have an Account?
+              
               <Link to="/login" className="signUpFormFieldLink">
-                Login
+              Already have an Account? Login
               </Link>
             </div>
           </form>

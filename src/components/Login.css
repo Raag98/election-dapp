@@ -74,6 +74,7 @@
     display: inline-block;
     border-bottom: 1.5px solid #6b5b95;
     padding-bottom: 5px;
+    margin-left: 15px;
 }
 
 /* .loginFormFieldCheckboxLabel {
