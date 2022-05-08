@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./SignUp.css";
 
 const Signup = () => {
+
+  const navigate = useNavigate();
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -22,7 +24,7 @@ const Signup = () => {
       await signUp(email, password);
       updateProf(name);
       console.log("Sign up successful");
-      Navigate("/dashboard");
+      navigate("/dashboard/");
     } catch {
       setError("Failed to create an account");
     }
@@ -44,7 +46,7 @@ const Signup = () => {
                 type="text"
                 id="name"
                 className="signUpFormFieldInput"
-                placeholder="Enter your name"
+                placeholder="Enter your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />

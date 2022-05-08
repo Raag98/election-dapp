@@ -11,7 +11,7 @@ export function AuthProvider({children}) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   function updateProf(name) {
     updateProfile(auth.currentUser, {
@@ -30,7 +30,7 @@ export function AuthProvider({children}) {
   }
 
   function logOut() {
-    Navigate("/");
+    navigate("/");
     return signOut(auth);
   }
 
@@ -56,7 +56,7 @@ export function AuthProvider({children}) {
     signIn,
     logOut,
     updateProf,
-    history,
+    navigate,
   };
 
   return (

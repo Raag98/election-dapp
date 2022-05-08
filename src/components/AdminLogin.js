@@ -1,9 +1,20 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
+  
+  const navigate = useNavigate();
+
+  const [admin, setAdmin] = useState();
+  const [password, setPassword] = useState();
+
+  const handleLogin = () => {
+    console.log(`Admin: ${admin}`);
+    // navigate("/admin-dashboard");
+  }
+
   return (
     <div className="AdminLogin" id="AdminLogin">
       <div className="adminLoginAside" />
@@ -20,6 +31,8 @@ const AdminLogin = () => {
                 id="email"
                 className="adminLoginFormFieldInput"
                 placeholder="Enter your Email"
+                value={admin}
+                onChange={(e) => setAdmin(e.target.value)}
               />
             </div>
 
@@ -32,11 +45,13 @@ const AdminLogin = () => {
                 id="password"
                 className="adminLoginFormFieldInput"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <div className="adminLoginFormField">
-              <button className="adminLoginFormFieldButton">Login</button>
+              <button className="adminLoginFormFieldButton" onClick={handleLogin}>Login</button>
               {/* <Link to="/" className="adminLoginFormFieldLink">
               Create an account
             </Link> */}

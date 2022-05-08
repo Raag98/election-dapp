@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./Login.css";
 
 const Login = () => {
+
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -18,7 +20,7 @@ const Login = () => {
       setError('');
       setLoading(true);
       await signIn(email, password);
-      Navigate("/dashboard");
+      navigate("/dashboard/");
       console.log("Login successful", currentUser);
     } catch {
       setError('Login Failed')

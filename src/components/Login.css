@@ -66,6 +66,7 @@
     padding: 15px 70px;
     font-size: 0.8em;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .loginFormFieldLink {
