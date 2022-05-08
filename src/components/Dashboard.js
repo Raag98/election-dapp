@@ -9,13 +9,11 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
       <Sidebar />
-      <Router>
         <Routes>
-          <Route path="/" element={<Registration />} />
-          {/* <Route path="/voting" component={<Voting />} /> */}
-          {/* <Route path="/results" component={<Results />} /> */}
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/voting" element={<Voting />} />
+          {/* <Route path="/results" element={<Results />} /> */}
         </Routes>
-      </Router>
     </div>
   );
 }

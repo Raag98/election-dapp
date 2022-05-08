@@ -19,55 +19,6 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<Signup />} />
           <Route exact path="/admin-login" element={<AdminLogin />} />
-
-          {/* <Route path="/votes">
-              <div className="admin-home">
-                <Admin />
-                <Votes />
-              </div>
-            </Route> */}
-
-          {/* <Route path="/admin/home">
-              <div className="admin-home">
-                <Admin />
-                <RegisterVoter />
-              </div>
-            </Route> */}
-
-          {/* <Route path="/admin/phase">
-              <div className="admin-home">
-                <Admin />
-                <Phase />
-              </div>
-            </Route> */}
-
-          {/* <Route path="/admin/add">
-              <div className="admin-home">
-                <Admin />
-                <AddCandidate />
-              </div>
-            </Route> */}
-
-          {/* <Route path="/voting">
-              <div className="voting-home">
-                <Home />
-                <Voting />
-              </div>
-            </Route> */}
-
-          {/* <Route path="/results">
-              <div className="voting-home">
-                <Home />
-                <Results />
-              </div>
-            </Route> */}
-
-          {/* <Route path="/home">
-              <div className="voting-home">
-                <Home />
-                <Registration />
-              </div>
-            </Route> */}
         </Routes>
       </div>
     </AuthProvider>

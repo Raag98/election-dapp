@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'
 
 export default function Sidebar() {
@@ -7,6 +7,12 @@ export default function Sidebar() {
     const { currentUser, logOut } = useAuth();
     const [manager, setManager] = useState("No Idea!")
     const history = useNavigate();
+
+    const logout = () => {
+      logOut();
+      Navigate("/");
+    }
+
 
     return (
       <div className="sidebar">
@@ -23,7 +29,7 @@ export default function Sidebar() {
           <Link to="/results">
             <li>Results</li>
           </Link>
-          <li onClick={logOut}>Logout</li>
+          <li onClick={logout}>Logout</li>
         </ul>
 
         <h4>Managed By: {manager}</h4>
