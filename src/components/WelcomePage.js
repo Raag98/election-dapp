@@ -1,21 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Navigate, Link } from "react-router-dom";
+import "./WelcomePage.css";
 
-export default function WelcomePage() {
+const WelcomePage = () => {
   return (
     <div className="welcome-page">
-      <nav className="navbar">
-        <h1>Voting Dapp</h1>
-
-        <ul>
-          <Link to="/login">
-            <li>Voters Login</li>
-          </Link>
-          <Link to="/admin-login">
-            <li>Admin Login</li>
-          </Link>
-        </ul>
-      </nav>
+      <h1>Voting Dapp</h1>
+      <Link to="/login">
+        <button>Voter Login</button>
+      </Link>
+      <Link to="/admin-login">
+        <button>Admin Login</button>
+      </Link>
     </div>
   );
-}
+};
+
+export default WelcomePage;
