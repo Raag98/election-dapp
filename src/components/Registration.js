@@ -1,15 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useAuth } from "../contexts/AuthContext";
+import db from '../firebase/firebase';
+import { collection, doc, updateDoc } from 'firebase/firestore';
 
 export default function Registration() {
-    const [phase, setPhase] = useState();
+    const [phase, setPhase] = useState("registration");
     const [name, setName] = useState();
     const [aadhar, setAadhar] = useState();
     const [wallet, setWallet] = useState();
     const [approved, setApproved] = useState(false);
 
-    const update = () => {
+    const { currentUser } = useAuth();
+
+    const setValues = async () => {
+      // Update values in Firebase
+      
+      const docRef = doc(db, "voters", currentUser.uid);
+      
+      await updateDoc(docRef, {
+        aadhar: aadhar,
+        walletAddr: wallet,
+      });
+      
       console.log("Update Values!");
     }
+
+
+    useEffect(() => {
+      setName(currentUser.displayName);      
+    }, []);
+
 
     return (
       <div className="registration">
@@ -29,7 +49,7 @@ export default function Registration() {
               value={wallet}
               onChange={(e) => setWallet(e.target.value)}
             />
-            <button value="Proceed" onClick={update} />
+            <button onClick={setValues}>Proceed</button>
           </div>
         ) : (
           <h2>Registrations Phase Over! You can't register now.</h2>
@@ -46,17 +66,15 @@ export default function Registration() {
             <td>{name}</td>
             <td>{aadhar}</td>
             <td>{wallet}</td>
-            <td>
-              {approved ? (
-                <td>
-                  <button value="Registered" className="reg-btn" />
-                </td>
-              ) : (
-                <td>
-                  <button value="Unregistered" className="unreg-btn" />
-                </td>
-              )}
-            </td>
+            {approved ? (
+              <td>
+                <button className="reg-btn">Registered</button>
+              </td>
+            ) : (
+              <td>
+                <button className="unreg-btn">Unregistered</button>
+              </td>
+            )}
           </tr>
         </table>
       </div>

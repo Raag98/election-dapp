@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./SignUp.css";
 
@@ -11,10 +11,11 @@ const Signup = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const {signUp, updateProf} = useAuth();
+  const {signUp, updateProf, currentUser} = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -24,7 +25,7 @@ const Signup = () => {
       await signUp(email, password);
       updateProf(name);
       console.log("Sign up successful");
-      navigate("/dashboard/");
+      navigate("/dashboard");
     } catch {
       setError("Failed to create an account");
     }
