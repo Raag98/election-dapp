@@ -34,7 +34,7 @@ export default function Dashboard() {
   }, [currentUser]);
 
   return (
-    <div className="dashboard">
+    <div className="dashboard" style={{display: "flex"}}>
       <Sidebar />
       <Routes>
         <Route path="/" element={<Registration />} />

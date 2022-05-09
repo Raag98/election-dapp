@@ -10,7 +10,6 @@
 }
 
 .registrationForm {
-    width: 50%;
     background-color: #12130f;
     padding: 25px 40px;
     overflow: auto;
@@ -113,4 +112,15 @@
     border: 1px solid white;
     border-collapse: collapse;
     padding: 5px;
+}
+
+
+#voters #registered{
+    background-color: green;
+    cursor: pointer;
+}
+
+#voters #unregistered {
+    background-color: red;
+    cursor: pointer;
 }
