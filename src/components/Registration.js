@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Navigate, Link } from "react-router-dom";
-import { collection, doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import db from "../firebase/firebase";
-
 import "./Registration.css";
 
 const Registration = () => {
@@ -15,21 +13,47 @@ const Registration = () => {
 
   const { currentUser } = useAuth();
 
-  const setValues = async () => {
-    // Update values in Firebase
+  const [val1, setVal1] = useState("");
+  const [val2, setVal2] = useState("");
 
-    const docRef = doc(db, "voters", currentUser.uid);
+  const addVoter = async (e) => {
+    e.preventDefault();
 
-    await updateDoc(docRef, {
-      aadhar: aadhar,
-      walletAddr: wallet,
-    });
+    console.log(`Voter Added ${currentUser.displayName}`);
 
-    console.log("Update Values!");
+    try {
+      await setDoc(doc(db, "voters", currentUser.uid), {
+        name: currentUser.displayName,
+        email: currentUser.email,
+        aadhar: val1,
+        walletAddr: val2,
+        registraition: "unregistered",
+      });
+      console.log("Document written with ID: ", currentUser.uid);
+      setValues();
+    } catch (e) {
+      console.log("Error adding document: ", e);
+    }
   };
+  
+  const setValues = async () => {
+    setVal1("");
+    setVal2("");
+    const docRef = doc(db, "voters", currentUser.uid);
+    const docSnap = await getDoc(docRef);
+
+    if(docSnap.exists()) {
+      const t = docSnap.data();
+      setAadhar(t.aadhar);
+      setWallet(t.walletAddr);
+    }
+    else
+        console.log("No document exists");
+  }
 
   useEffect(() => {
     setName(currentUser.displayName);
+    setValues();
   }, []);
 
   return (
@@ -47,9 +71,9 @@ const Registration = () => {
                   type="text"
                   id="aadhaar"
                   className="registrationFormFieldInput"
-                  placeholder="Enter aadhaar number"
-                  value={aadhar}
-                  onChange={(e) => setAadhar(e.target.value)}
+                  placeholder="Enter your Aadhar Number"
+                  value={val1}
+                  onChange={(e) => setVal1(e.target.value)}
                 />
               </div>
 
@@ -64,16 +88,16 @@ const Registration = () => {
                   type="password"
                   id="metamask"
                   className="registrationFormFieldInput"
-                  placeholder="Enter candidate party"
-                  value={wallet}
-                  onChange={(e) => setWallet(e.target.value)}
+                  placeholder="Enter your Metamask Wallet Address"
+                  value={val2}
+                  onChange={(e) => setVal2(e.target.value)}
                 />
               </div>
 
               <div className="registrationFormField">
                 <button
                   className="registrationFormFieldButton"
-                  onClick={setValues}
+                  onClick={e => addVoter(e)}
                 >
                   Proceed
                 </button>
@@ -84,26 +108,28 @@ const Registration = () => {
           )}
 
           <table id="voters">
-            <tr>
-              <th>Name</th>
-              <th>Aadhar</th>
-              <th>Wallet Address</th>
-              <th>Registration Status</th>
-            </tr>
-            <tr>
-              <td>{name}</td>
-              <td>{aadhar}</td>
-              <td>{wallet}</td>
-              {approved ? (
-                <td>
-                  <button className="reg-btn">Registered</button>
-                </td>
-              ) : (
-                <td>
-                  <button className="unreg-btn">Unregistered</button>
-                </td>
-              )}
-            </tr>
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <th>Aadhar</th>
+                <th>Wallet Address</th>
+                <th>Registration Status</th>
+              </tr>
+              <tr>
+                <td>{name}</td>
+                <td>{aadhar}</td>
+                <td>{wallet}</td>
+                {approved ? (
+                  <td>
+                    <button className="reg-btn">Registered</button>
+                  </td>
+                ) : (
+                  <td>
+                    <button className="unreg-btn">Unregistered</button>
+                  </td>
+                )}
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>

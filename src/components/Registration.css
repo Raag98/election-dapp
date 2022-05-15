@@ -114,13 +114,16 @@
     padding: 5px;
 }
 
-
-#voters #registered{
-    background-color: green;
+#voters button {
     cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    padding: 5px 10px;
+}
+#voters .reg-btn{
+    background-color: green;
 }
 
-#voters #unregistered {
+#voters .unreg-btn {
     background-color: red;
-    cursor: pointer;
 }

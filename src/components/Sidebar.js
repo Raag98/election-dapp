@@ -32,32 +32,31 @@ export default function Sidebar() {
                 fontWeight: "bold",
               }}
             >
-              Welcome
+              Welcome, <br></br>
+              <span>{currentUser.displayName}</span>
             </span>
           </div>
           <div className="sidebar-content">
             <nav className="menu open-current-submenu">
               <ul>
                 <Link to="/">
-                  <li className="menu-item">Registration
-                  </li>
+                  <li className="menu-item">Registration</li>
                 </Link>
                 <Link to="/voting">
-                  <li className="menu-item">Voting
-                  </li>
+                  <li className="menu-item">Voting</li>
                 </Link>
                 <Link to="/results">
-                  <li className="menu-item">Results
-                  </li>
+                  <li className="menu-item">Results</li>
                 </Link>
                 <Link to="/">
-                <li className="menu-item" onClick={logout}>Logout</li>
+                  <li className="menu-item" onClick={logout}>
+                    Logout
+                  </li>
                 </Link>
               </ul>
             </nav>
           </div>
           <div className="sidebar-footer">
-            <span>{currentUser.displayName}</span>
             <br />
             <span>Managed By: {manager}</span>
           </div>
