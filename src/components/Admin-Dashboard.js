@@ -7,7 +7,6 @@ import Phases from './Phases';
 const AdminDashboard = () => {
   return (
     <div className="dashboard">
-      <h1> Admin Dash</h1>
         <AdminSidebar />
         <Routes>
             {/* <Route path="/register-voter" element={<RegisterVoter />} /> */}
