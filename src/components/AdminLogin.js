@@ -1,18 +1,42 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { doc, getDoc } from "firebase/firestore";
+import db from "../firebase/firebase";
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
   
   const navigate = useNavigate();
 
+  const { signIn } = useAuth();
+
   const [admin, setAdmin] = useState();
   const [password, setPassword] = useState();
 
-  const handleLogin = () => {
-    console.log(`Admin: ${admin}`);
-    // navigate("/admin-dashboard");
+  // const getAdmin = async () => {
+  //   const docRef = doc(db, "admin", "admin-creds");
+  //   const docSnap = await getDoc(docRef);
+    
+  //   const t = docSnap.data();
+
+  //   return t.email;
+  // }
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    
+    console.log(admin);
+
+    if(admin === "admin@gmail.com") {
+      await signIn(admin, password);
+      navigate("/admin-dashboard");
+      console.log("Admin Login successful");
+    }
+    else {
+      alert("Not an Admin!");
+      navigate("/admin-login");
+    }
   }
 
   return (
@@ -52,9 +76,6 @@ const AdminLogin = () => {
 
             <div className="adminLoginFormField">
               <button className="adminLoginFormFieldButton" onClick={handleLogin}>Login</button>
-              {/* <Link to="/" className="adminLoginFormFieldLink">
-              Create an account
-            </Link> */}
             </div>
           </form>
         </div>
