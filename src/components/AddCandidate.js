@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./AddCandidate.css";
 import { setDoc, doc,  } from "firebase/firestore";
+import db from "../firebase/firebase";
 
 const AddCandidate = () => {
 
@@ -10,7 +11,7 @@ const AddCandidate = () => {
   const [photo, setPhoto] = useState();
   const [wallet, setWallet] = useState();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {

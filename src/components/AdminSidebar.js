@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./SideBar.css";
 
-export default function Sidebar() {
+export default function AdminSidebar() {
   const { currentUser, logOut } = useAuth();
   const [manager, setManager] = useState("The Manager");
   const navigate = useNavigate();
@@ -32,8 +32,7 @@ export default function Sidebar() {
                 fontWeight: "bold",
               }}
             >
-              Welcome, <br></br>
-              <span>{currentUser.displayName}</span>
+              Welcome, Admin
             </span>
           </div>
           <div className="sidebar-content">
