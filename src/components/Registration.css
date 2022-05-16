@@ -2,10 +2,10 @@
     height: 100vh;
     display: flex;
     color: white;
+    width:  -webkit-fill-available;
 }
 
 .registrationAside {
-    width: 50%;
     background-color: #6b5b95;
 }
 
@@ -13,6 +13,7 @@
     background-color: #12130f;
     padding: 25px 40px;
     overflow: auto;
+    width:  -webkit-fill-available;
 }
 
 .registrationFormCenter {
