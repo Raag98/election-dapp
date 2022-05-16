@@ -16,15 +16,22 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    try {
-      setError('');
-      setLoading(true);
+    if(email === "admin@gmail.com") {
       await signIn(email, password);
-      navigate("/dashboard/");
-      console.log("Login successful", currentUser);
-    } catch {
-      setError('Login Failed')
+      navigate("/admin-dashboard");
+      console.log("Admin Login successful");
     }
+    else {
+      try {
+        setError("");
+        setLoading(true);
+        await signIn(email, password);
+        navigate("/dashboard/");
+        console.log("Login successful", currentUser);
+      } catch {
+        setError("Login Failed");
+      }
+    }    
   }
 
   return (

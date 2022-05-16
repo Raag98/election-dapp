@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-
 var voted = false;
 
 const Candidate = ({name, party, qual, image, votes, id}) => {
@@ -30,7 +29,7 @@ const Candidate = ({name, party, qual, image, votes, id}) => {
 }
 
 
-export default Voting = () => {
+const Voting = () => {
     const [candList, setCandList] = useState([]);
 
     const [phase, setPhase] = useState();
@@ -85,3 +84,5 @@ export default Voting = () => {
       </div>
     );
 }
+
+export default Voting;
