@@ -18,7 +18,7 @@ const Login = () => {
 
     if(email === "admin@gmail.com") {
       await signIn(email, password);
-      navigate("/admin-dashboard");
+      navigate("/admin-dashboard/");
       console.log("Admin Login successful");
     }
     else {

@@ -30,7 +30,7 @@ const AdminLogin = () => {
 
     if(admin === "admin@gmail.com") {
       await signIn(admin, password);
-      navigate("/admin-dashboard");
+      navigate("/admin-dashboard/");
       console.log("Admin Login successful");
     }
     else {

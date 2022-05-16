@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/signup" element={<Signup />} />
           <Route exact path="/admin-login" element={<AdminLogin />} />
-          <Route exact path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route exact path="/admin-dashboard/*" element={<AdminDashboard />} />
         </Routes>
       </div>
     </AuthProvider>

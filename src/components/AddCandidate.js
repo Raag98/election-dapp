@@ -6,22 +6,25 @@ import db from "../firebase/firebase";
 const AddCandidate = () => {
 
   const [name, setName] = useState();
-  const [party, ,setParty] = useState();
+  const [party, setParty] = useState();
   const [qual, setQual] = useState();
-  const [photo, setPhoto] = useState();
+  const [aadhar, setAadhar] = useState();
   const [wallet, setWallet] = useState();
+  const [photo, setPhoto] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await setDoc(doc(db, "candidates", ), {
+      await setDoc(doc(db, "candidates", aadhar), {
         name: name,
         party: party,
         qualification: qual,
-        photo: photo,
+        aadhar: aadhar,
         walletAddr: wallet,
+        photo: photo,
       });
+      console.log("Candidate Added Successfully");
     } catch (e) {
       console.log("Error adding document: ", e);
     }
@@ -55,7 +58,7 @@ const AddCandidate = () => {
               </label>
               <input
                 type="text"
-                id="name"
+                id="party"
                 className="addCandidateFormFieldInput"
                 placeholder="Enter candidate party"
                 value={party}
@@ -72,11 +75,39 @@ const AddCandidate = () => {
               </label>
               <input
                 type="text"
-                id="name"
+                id="qual"
                 className="addCandidateFormFieldInput"
                 placeholder="Enter candidate's qualifications"
                 value={qual}
                 onChange={(e) => setQual(e.target.value)}
+              />
+            </div>
+
+            <div className="addCandidateFormField">
+              <label className="addCandidateFormFieldLabel" htmlFor="aadhar">
+                Candidate Aadhar
+              </label>
+              <input
+                type="text"
+                id="aadhar"
+                className="addCandidateFormFieldInput"
+                placeholder="Enter candidate's aadhar"
+                value={aadhar}
+                onChange={(e) => setAadhar(e.target.value)}
+              />
+            </div>
+
+            <div className="addCandidateFormField">
+              <label className="addCandidateFormFieldLabel" htmlFor="wallet">
+                Candidate Wallet Address
+              </label>
+              <input
+                type="password"
+                id="wallet"
+                className="addCandidateFormFieldInput"
+                placeholder="Enter candidate's wallet address"
+                value={wallet}
+                onChange={(e) => setWallet(e.target.value)}
               />
             </div>
 
@@ -86,25 +117,11 @@ const AddCandidate = () => {
               </label>
               <input
                 type="text"
-                id="name"
+                id="photo"
                 className="addCandidateFormFieldInput"
                 placeholder="Enter candidate's image url"
                 value={photo}
                 onChange={(e) => setPhoto(e.target.value)}
-              />
-            </div>
-
-            <div className="addCandidateFormField">
-              <label className="addCandidateFormFieldLabel" htmlFor="imageUrl">
-                Candidate Wallet Address
-              </label>
-              <input
-                type="password"
-                id="name"
-                className="addCandidateFormFieldInput"
-                placeholder="Enter candidate's wallet address"
-                value={wallet}
-                onChange={(e) => setWallet(e.target.value)}
               />
             </div>
 

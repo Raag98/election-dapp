@@ -42,10 +42,10 @@ export default function Sidebar() {
                 <Link to="/">
                   <li className="menu-item">Registration</li>
                 </Link>
-                <Link to="/voting">
+                <Link to="/dashboard/voting">
                   <li className="menu-item">Voting</li>
                 </Link>
-                <Link to="/results">
+                <Link to="/dashboard/results">
                   <li className="menu-item">Results</li>
                 </Link>
                 <Link to="/">

@@ -38,14 +38,14 @@ export default function AdminSidebar() {
           <div className="sidebar-content">
             <nav className="menu open-current-submenu">
               <ul>
-                <Link to="/">
-                  <li className="menu-item">Registration</li>
+                <Link to="/admin-dashboard/register-voter">
+                  <li className="menu-item">Register Voter</li>
                 </Link>
-                <Link to="/voting">
-                  <li className="menu-item">Voting</li>
+                <Link to="/admin-dashboard/">
+                  <li className="menu-item">Add Candidates</li>
                 </Link>
-                <Link to="/results">
-                  <li className="menu-item">Results</li>
+                <Link to="/admin-dashboard/phases">
+                  <li className="menu-item">Phase</li>
                 </Link>
                 <Link to="/">
                   <li className="menu-item" onClick={logout}>
