@@ -56,6 +56,13 @@ const Registration = () => {
     setValues();
   }, []);
 
+  function maskInfo (text) {
+    var string = String(text);
+    var replaced= string.slice(0, 2) + string.slice(2).replace(/.(?=...)/g, '*');
+    console.log("Replaced:" + replaced);
+    return replaced;
+  }
+
   return (
     <div className="Registration">
       <div className="registrationForm">
@@ -117,8 +124,8 @@ const Registration = () => {
               </tr>
               <tr>
                 <td>{name}</td>
-                <td>{aadhar}</td>
-                <td>{wallet}</td>
+                <td>{maskInfo(aadhar)}</td>
+                <td>{maskInfo(wallet)}</td>
                 {approved ? (
                   <td>
                     <button className="reg-btn">Registered</button>

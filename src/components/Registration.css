@@ -123,8 +123,10 @@
 }
 #voters .reg-btn{
     background-color: green;
+    color: white;
 }
 
 #voters .unreg-btn {
     background-color: red;
+    color: white;
 }

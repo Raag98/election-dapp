@@ -15,6 +15,13 @@
     text-align: center;
 }
 
+.welcome-page h3 {
+    margin-top: 20px;
+    color: rgb(141, 217, 252);
+    text-transform: uppercase;
+    text-align: center;
+}
+
 .welcome-page button {
     background-color: #6b5b95;
     color: white;
@@ -29,7 +36,9 @@
 }
 
 .welcome-page button:hover {
-    background: green;
+    /* background: green; */
+    background-color: rgb(141, 217, 252);
+    color: #12130f;
 }
 
 .welcome-page button:active {
