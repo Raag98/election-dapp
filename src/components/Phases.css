@@ -30,7 +30,8 @@
 }
 
 .Phases button:hover {
-    background: green;
+   background-color: rgb(141, 217, 252);
+   color: black;
 }
 
 .Phases button:active {

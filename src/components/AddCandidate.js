@@ -24,8 +24,10 @@ const AddCandidate = () => {
         walletAddr: wallet,
         photo: photo,
       });
-      console.log("Candidate Added Successfully");
+      alert("Candidate Added Successfully");
+      // console.log("Candidate Added Successfully");
     } catch (e) {
+      alert("Error : ", e);
       console.log("Error adding document: ", e);
     }
 
