@@ -6,6 +6,7 @@ const WelcomePage = () => {
   return (
     <div className="welcome-page">
       <h1>Voting Dapp</h1>
+      <h3>Jiit Secure Voting Application</h3>
       <Link to="/login">
         <button>Voter Login</button>
       </Link>
