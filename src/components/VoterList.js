@@ -47,11 +47,11 @@ const VoterListRow = ({ vName, vEmail, aadhar, address, registered }) => {
       <div>{maskInfo(address)}</div>
       <div>
         {reg ? (
-          <button onClick={handleClick}>
+          <button className="registerButton" onClick={handleClick}>
             Register
           </button>
         ) : (
-          <button onClick={handleClick}>
+          <button className="unRegisterButton" onClick={handleClick}>
             Unregister
           </button>
         )}
