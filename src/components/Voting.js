@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext';
 import db from '../firebase/firebase';
 import "./Voting.css"
+import web3 from "../Web3Client";
+import instance from "./Vote";
 
 const Candidate = ({name, party, qual, image, votes, id}) => {
 
@@ -45,7 +47,7 @@ const Voting = () => {
 
       const candidates = await getDoc(collection(db, "candidates"));
 
-      const temp = [];
+      var temp = [];
       candidates.forEach(d => {
         temp.push(d.data());
       });
@@ -75,10 +77,35 @@ const Voting = () => {
         console.log(phase);
     };
 
+    const [account, setAccount] = useState();
+    const [manager, setManager] = useState();
+    const [count, setCount] = useState();
+    const [list, setList] = ([]);
+
+    const getAccounts = async () => {
+      const acc = await web3.eth.getAccounts();
+      setAccount(acc[0]);
+
+      const candCount = await instance.methods.candidatesCount();
+      const mngr = await instance.methods.manager().call();
+
+      setManager(mngr);
+      setCount(candCount);
+
+      const data = await Promise.all(Array(parseInt(candCount)).fill().map((element, index) => {
+        return instance.methods.candidates(index + 1).call();
+      }));
+
+      setList(data);
+    }
+
+
     useEffect(() => {
         getPhase();
         approvedStatus();
         getCandidates();
+
+        // getAccounts();
     }, []);
 
 
