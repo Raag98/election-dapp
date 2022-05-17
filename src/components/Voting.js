@@ -1,23 +1,27 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import db from "../firebase/firebase";
-import "./Voting.css";
-
+import { updateDoc, collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react'
+import { useAuth } from '../contexts/AuthContext';
+import db from '../firebase/firebase';
+import "./Voting.css"
 // import web3 from "../Web3Client";
 // import instance from "./Vote";
 
-const CandidateListRow = ({ name, party, image }) => {
-  const [status, setStatus] = useState("not-voted");
+const CandidateListRow = ({name, party, image, aadhar, qual, votes, wallet, status, setStatus}) => {
 
-  const vote = () => {
-    if (status === "voted") alert("Already Voted!");
-    else {
-      // Update Firebase
-      console.log("Voted!");
-      setStatus("voted");
+    const vote = async () => {
+        if(status === "voted")
+            alert("Already Voted!");
+        else {
+            // Update Firebase
+            console.log("Voted!")
+            const candRef = doc(db, "candidates", aadhar);
+            await updateDoc(doc(db, "candidates", aadhar), {
+              votes: votes + 1,
+            });
+            setStatus("voted");
+        }
     }
-  };
+  
 
   return (
     <div className="CandidateListRow">
@@ -34,11 +38,13 @@ const CandidateListRow = ({ name, party, image }) => {
         )}
       </div>
     </div>
-  );
-};
+  );};
 
 const Voting = () => {
-  const [candList, setCandList] = useState([]);
+
+    const [status, setStatus] = useState("not-voted");
+
+    const [candList, setCandList] = useState([]);
 
   const [phase, setPhase] = useState();
   const [approved, setApproved] = useState(false);
@@ -117,7 +123,15 @@ const Voting = () => {
           </div>
           <div className="CandidateListBody">
             {candList.map((d) => (
-              <CandidateListRow name={d.name} party={d.party} image={d.image} />
+              <CandidateListRow name={d.name}
+              party={d.party}
+              image={d.image}
+              aadhar={d.aadhar}
+              qual={d.qualification}
+              votes={d.votes}
+              wallet={d.walletAddr}
+              status={status}
+              setStatus={setStatus}/>
             ))}
           </div>
         </div>
