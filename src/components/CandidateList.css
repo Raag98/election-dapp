@@ -1,0 +1,28 @@
+.CandidateListTable {
+    margin: 1em ;
+    display: flex;
+    flex-direction: column;
+    width:  -webkit-fill-available;
+}
+
+.CandidateListHeader,
+.CandidateListRow {
+    display: flex;
+}
+
+.CandidateListHeader div,
+.CandidateListRow div {
+    flex: 1;
+    padding: 0.2rem 0.4em;
+    border: 1px solid #12130f;
+}
+
+.CandidateListHeader {
+    background-color: #6b5b95;
+    color: white;
+}
+
+.CandidateListBody img {
+    height: 200px;
+    width: 200px;
+}

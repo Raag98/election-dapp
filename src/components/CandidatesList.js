@@ -1,69 +1,58 @@
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import db from '../firebase/firebase';
+import "./CandidateList.css";
 
-const TableRow = ({name, party, qual, aadh, photo}) => {
-    return (
-        <tr>
-            <td>{name}</td>
-            <td>{party}</td>
-            <td>{qual}</td>
-            <td>{aadh}</td>
-            <td><img className="photo" src={photo} alt={name} /></td>
-        </tr>
-    );
-}
+const CandidateListRow = ({ name, party, qual, aadh, photo }) => {
+  return (
+    <div className="CandidateListRow">
+      <div>{name}</div>
+      <div>{party}</div>
+      <div>{qual}</div>
+      <div>{aadh}</div>
+      <div>
+        <img className="photo" src={photo} alt={name} />
+      </div>
+    </div>
+  );
+};
 
 export default function CandidatesList() {
+  const [candid, setCandid] = useState([]);
 
-    const [candid, setCandid] = useState([]);
+  const getCandidates = async (e) => {
+    var querySnapshot = await getDocs(collection(db, "candidates"));
 
-    const getCandidates = async (e) => { 
-        var querySnapshot = await getDocs(collection(db, "candidates"));
+    var temp = [];
 
-        var temp = [];
+    querySnapshot.forEach((d) => {
+      // console.log(d.data());
+      temp.push(d.data());
+    });
+    console.log(temp);
+    setCandid(temp);
 
-        querySnapshot.forEach(d => {
-            // console.log(d.data());
-            temp.push(d.data());
-        })
-        console.log(temp);
-        setCandid(temp);
-        
-        console.log(candid);
-    };
+    console.log(candid);
+  };
 
-    useEffect(() => {
-        getCandidates();
-    }, []);
+  useEffect(() => {
+    getCandidates();
+  }, []);
 
-    return (
-        <div className="CandidateList">
-            <div className="addCandidateFormCenter">
-                <p className="addCandidateFormTitle">Candidates List </p>
-                <table id="candidates">
-                    <tbody>
-                        <tr>
-                            <th>Name</th>
-                            <th>Party</th>
-                            <th>Qualifications</th>
-                            <th>Aadhar</th>
-                            <th>Photo</th>
-                        </tr>
-                        {candid.map(d => {
-                            return (
-                                <TableRow
-                                name={d.name}
-                                party={d.party}
-                                qual={d.qualification}
-                                aadh={d.aadhar}
-                                photo={d.photo}
-                                />
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    )
+  return (
+    <div className="CandidateListTable">
+      <div className="CandidateListHeader">
+        <div>Name</div>
+        <div>Party</div>
+        <div>Qualifications</div>
+        <div>Aadhaar</div>
+        <div>Photo</div>
+      </div>
+      <div className="CandidateListBody">
+        {candid.map((rowData) => (
+          <CandidateListRow {...rowData} />
+        ))}
+      </div>
+    </div>
+  );
 }
