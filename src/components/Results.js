@@ -8,7 +8,7 @@ const ResultsRow = ({name, party, photo, votes}) => {
     <div className="ResultsListRow">
       <div>{name}</div>
       <div>{party}</div>
-      <div><img src={photo} alt={name} /></div>
+      <div><img className='photo' src={photo} alt={name} /></div>
       <div>{votes}</div>
     </div>
   );
@@ -47,6 +47,7 @@ export default function Results() {
 
   return (
     <div className="ResultTable">
+      <h1>Results</h1>
       <div className="ResultListHeader">
         <div>Name</div>
         <div>Party</div>
