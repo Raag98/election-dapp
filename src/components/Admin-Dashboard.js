@@ -4,6 +4,7 @@ import AdminSidebar from "./AdminSidebar";
 import AddCandidate from "./AddCandidate";
 import Phases from './Phases';
 import CandidatesList from './CandidatesList';
+import VoterList from './VoterList';
 
 const AdminDashboard = () => {
   return (
@@ -13,8 +14,7 @@ const AdminDashboard = () => {
         <Route exact path="/" element={<AddCandidate />} />
         <Route path="/phases" element={<Phases />} />
         <Route path="/candidates-list" element={<CandidatesList />} />
-        {/* <Route path="/register-voter" element={<RegisterVoter />} /> */}
-        {/* <Route path="/vote-tally" element={<VoteTally />} /> */}
+        <Route path="/register-voter" element={<VoterList />} />
       </Routes>
     </div>
   );
