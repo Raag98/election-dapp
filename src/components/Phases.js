@@ -1,17 +1,45 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { setDoc, doc } from "firebase/firestore";
+import db from "../firebase/firebase";
 import "./Phases.css";
 
 const Phases = () => {
 
-  const [currPhase, setCurrPhase] = useState("Registration");
+  const [currPhase, setCurrPhase] = useState();
+
+  const setPhase = async () => {
+
+    await setDoc(doc(db, "phase", "current-phase"), {
+      phase: currPhase,
+    });
+  }
+
+  useEffect(() => {
+    setPhase();
+  }, [currPhase]);
 
   return (
     <div className="Phases">
+      <h1>Current Phase: {currPhase}</h1>
       <h1>Select a phase</h1>
-      <button onClick={e => setCurrPhase("Registration")}>Registration</button>
-      <button onClick={e => setCurrPhase("Voting")}>Voting</button>
-      <button onClick={e => setCurrPhase("Results")}>Results</button>
+      <button
+        value="registration"
+        onClick={(e) => setCurrPhase(e.target.value)}
+      >
+        Registration
+      </button>
+      <button
+        value="voting"
+        onClick={(e) => setCurrPhase(e.target.value)}
+      >
+        Voting
+      </button>
+      <button 
+        value="results" 
+        onClick={e => setCurrPhase(e.target.value)}
+      >
+        Results
+      </button>
     </div>
   );
 };

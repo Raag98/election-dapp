@@ -5,7 +5,7 @@ import db from "../firebase/firebase";
 import "./Registration.css";
 
 const Registration = () => {
-  const [phase, setPhase] = useState("registration");
+  const [phase, setPhase] = useState();
   const [name, setName] = useState();
   const [aadhar, setAadhar] = useState();
   const [wallet, setWallet] = useState();
@@ -16,20 +16,28 @@ const Registration = () => {
   const [val1, setVal1] = useState("");
   const [val2, setVal2] = useState("");
 
+  const getPhase = async (e) => {
+    e.preventDefault();
+
+    const phaseStatus = await getDoc(doc(db, "phase", "current-phase"));
+
+    setPhase(phaseStatus.data().phase);
+  }
+
   const addVoter = async (e) => {
     e.preventDefault();
 
     console.log(`Voter Added ${currentUser.displayName}`);
 
     try {
-      await setDoc(doc(db, "voters", currentUser.uid), {
+      await setDoc(doc(db, "voters", currentUser.email), {
         name: currentUser.displayName,
         email: currentUser.email,
         aadhar: val1,
         walletAddr: val2,
         registraition: "unregistered",
       });
-      console.log("Document written with ID: ", currentUser.uid);
+      console.log("Document written!");
       setValues();
     } catch (e) {
       console.log("Error adding document: ", e);
@@ -39,8 +47,7 @@ const Registration = () => {
   const setValues = async () => {
     setVal1("");
     setVal2("");
-    const docRef = doc(db, "voters", currentUser.uid);
-    const docSnap = await getDoc(docRef);
+    const docSnap = await getDoc(doc(db, "voters", currentUser.email));
 
     if(docSnap.exists()) {
       const t = docSnap.data();
@@ -52,6 +59,7 @@ const Registration = () => {
   }
 
   useEffect(() => {
+    getPhase();
     setName(currentUser.displayName);
     setValues();
   }, []);

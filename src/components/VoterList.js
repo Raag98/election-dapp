@@ -1,38 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getDocs, collection, setDoc, doc } from "firebase/firestore";
+import db from "../firebase/firebase";
 import "./VoterList.css";
 
-const VoterListRow = ({ vName, vEmail, aadhaar, address, status, register}) => (
-  <div className="VoterListRow">
-    <div>{vName}</div>
-    <div>{vEmail}</div>
-    <div>{aadhaar}</div>
-    <div>{address}</div>
-    <div>{status}</div>
-    <div>{register}</div>
-  </div>
-);
+const VoterListRow = ({ vName, vEmail, aadhaar, address }) => {
+
+  const [reg, setReg] = useState(true);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    if(reg) {
+      await setDoc(doc(db, "voters", vEmail), {
+        registraition: "registered",
+      });
+      console.log(`${vName} registered!`);
+      setReg(false);
+    }
+    else {
+      await setDoc(doc(db, "voters", vEmail), {
+        registraition: "unregistered",
+      });
+      console.log(`${vName} unregistered!`);
+      setReg(true);
+    }
+  }
+
+  return (
+    <div className="VoterListRow">
+      <div>{vName}</div>
+      <div>{vEmail}</div>
+      <div>{aadhaar}</div>
+      <div>{address}</div>
+      <div>
+        {reg ? (
+          <button id={aadhaar} onClick={handleClick}>
+            Register
+          </button>
+        ) : (
+          <button id={aadhaar} onClick={handleClick}>
+            Unregister
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
 
 const VoterList = () => {
-  const data = [
-    {
-      vName: "Anurag Rai",
-      vEmail: "raianurag@gmail.com",
-      aadhaar: "012456478953",
-      address: "fgds gsdge grs ",
-      status: true, 
-      register: "Hdfh"
-    }, {
-      vName: "Riya Jain",
-      vEmail: "ricelime@gmail.com",
-      aadhaar: "gfh rtfht h",
-      address: "thy tedhrh",
-      status: false, 
-      register: "Hdfh"
-    },
-  ];
+  
+  const [voters, setVoters] = useState([]);
+  
+  const getVoters = async () => {
+    var querySnapshot = await getDocs(collection(db, "voters"));
 
+    var temp = [];
+    querySnapshot.forEach((d) => {
+      temp.push(d.data());
+    });
 
-  const rows = data.map((rowData) => <VoterListRow {...rowData} />);
+    console.log(temp);
+    setVoters(temp);
+  }
+
+  useEffect(() => {
+    getVoters();
+  }, []);
 
   return (
     <div className="VoterListTable">
@@ -40,11 +73,21 @@ const VoterList = () => {
         <div>Name</div>
         <div>Email</div>
         <div>Aadhaar</div>
-        <div>Address</div>
-        <div>Status</div>
+        <div>Wallet Address</div>
         <div>Register</div>
       </div>
-      <div className="VoterListBody">{rows}</div>
+      <div className="VoterListBody">
+        { voters.map((rowData) => {
+          return (
+            <VoterListRow 
+              vName={rowData.name}
+              vEmail={rowData.email}
+              aadhaar={rowData.aadhaar}
+              address={rowData.walletAddr}
+            />            
+          )})
+        }
+      </div>
     </div>
   );
 }

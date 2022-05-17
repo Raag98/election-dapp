@@ -1,31 +1,34 @@
+import { collection, doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
+import { useAuth } from '../contexts/AuthContext';
+import db from '../firebase/firebase';
 import "./Voting.css"
-
-var voted = false;
 
 const Candidate = ({name, party, qual, image, votes, id}) => {
 
-    const [status, setStatus] = useState("Vote");
+    const [status, setStatus] = useState("not-voted");
 
     const vote = () => {
-        if(voted)
+        if(status === "voted")
             alert("Already Voted!");
         else {
-            voted = true;
             // Update Firebase
-            setStatus("Voted");
+            setStatus("voted");
         }
     }
 
     return (
-        <tr>
-            <td>
-                <img src={image} className="candidate-img" />
-            </td>
-            <td>{ name.toUpperCase() }</td>
-            <td>{ party.toUpperCase() }</td>
-            <td><button onClick={vote} value={status} /></td>
-        </tr>
+      <tr>
+        <td>
+          <img src={image} className="candidate-img" />
+        </td>
+        <td>{name.toUpperCase()}</td>
+        <td>{party.toUpperCase()}</td>
+        <td>
+          <button value={status} />
+        </td>
+        {/* onClick={vote} */}
+      </tr>
     );
 }
 
@@ -36,25 +39,47 @@ const Voting = () => {
     const [phase, setPhase] = useState();
     const [approved, setApproved] = useState(false);
 
-    // const approvedStatus = async () => {
-    //     // Fetch approved Status from Firebase
-    // }
+    const { currentUser } = useAuth();
 
-    // const getPhase = async () => {
-    //     // Fetch Phase from Firebase
-    // };
+    const getCandidates = async () => {
 
-    // useEffect(() => {
-    //     getPhase();
-    //     approvedStatus();
+      const candidates = await getDoc(collection(db, "candidates"));
 
-    // }, []);
+      const temp = [];
+      candidates.forEach(d => {
+        temp.push(d.data());
+      })
+
+      setCandList(temp);
+    }
+
+    const approvedStatus = async () => {
+        // Fetch approved Status from Firebase
+        const appr = await getDoc(doc(db, "voters", currentUser.email));
+
+        if(appr.data().registration === "registered")
+          setApproved(true);
+    }
+
+    const getPhase = async () => {
+        // Fetch Phase from Firebase
+
+        const phaseStat = await getDoc(doc(db, "phase", "current-phase"));
+
+        setPhase(phaseStat.data().phase);
+    };
+
+    useEffect(() => {
+        getPhase();
+        approvedStatus();
+        getCandidates();
+    }, []);
 
 
     return (
       <div className="voting">
         <h1 className="heading-text">Cast your Vote!</h1>
-        {phase === "voting" && approved === true ? (
+        { phase === "voting" && approved === true ? (
           <div className="candidates-list">
             <table>
               <tr>
@@ -70,17 +95,15 @@ const Voting = () => {
                         party={d.party}
                         qual={d.qual}
                         image={d.image}
-                        votes={d.votes}
-                        id={d.id}
                     />
                 )
               }
             </table>
           </div>
-        ) : approved === "false" ? (
-          <h2 className="unreg-text">You haven't Registered! You cna't Vote</h2>
         ) : (
-          <h2 className="unreg-text">Voting Phase is yet to Start / is Over!</h2>
+          approved === "false" 
+          ? ( <h2 className="unreg-text">You haven't Registered! You can't Vote</h2> )  
+          : ( <h2 className="unreg-text">Voting Phase is yet to Start / is Over!</h2> )
         )}
       </div>
     );
