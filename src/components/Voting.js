@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import "./Voting.css"
 
 var voted = false;
 
