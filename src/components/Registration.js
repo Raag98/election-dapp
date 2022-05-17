@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { updateDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import db from "../firebase/firebase";
 import "./Registration.css";
 
@@ -27,13 +27,9 @@ const Registration = () => {
     console.log(`Voter Added ${currentUser.displayName}`);
 
     try {
-      await deleteDoc(doc(db, "voters", currentUser.email));
-      await setDoc(doc(db, "voters", currentUser.email), {
-        name: currentUser.displayName,
-        email: currentUser.email,
+      await updateDoc(doc(db, "voters", currentUser.email), {
         aadhar: val1,
         walletAddr: val2,
-        registraition: "unregistered",
       });
       console.log("Document written!");
       setValues();

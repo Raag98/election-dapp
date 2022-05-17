@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { updateDoc, collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext';
 import db from '../firebase/firebase';
@@ -6,16 +6,18 @@ import "./Voting.css"
 // import web3 from "../Web3Client";
 // import instance from "./Vote";
 
-const Candidate = ({name, party, image}) => {
+const Candidate = ({name, party, image, aadhar, qual, votes, wallet, status, setStatus}) => {
 
-    const [status, setStatus] = useState("not-voted");
-
-    const vote = () => {
+    const vote = async () => {
         if(status === "voted")
             alert("Already Voted!");
         else {
             // Update Firebase
             console.log("Voted!")
+            const candRef = doc(db, "candidates", aadhar);
+            await updateDoc(doc(db, "candidates", aadhar), {
+              votes: votes + 1,
+            });
             setStatus("voted");
         }
     }
@@ -40,6 +42,9 @@ const Candidate = ({name, party, image}) => {
 
 
 const Voting = () => {
+
+    const [status, setStatus] = useState("not-voted");
+
     const [candList, setCandList] = useState([]);
 
     const [phase, setPhase] = useState();
@@ -128,6 +133,12 @@ const Voting = () => {
                         name={d.name}
                         party={d.party}
                         image={d.image}
+                        aadhar={d.aadhar}
+                        qual={d.qualification}
+                        votes={d.votes}
+                        wallet={d.walletAddr}
+                        status={status}
+                        setStatus={setStatus}
                     />
                 )
               }
