@@ -22,22 +22,6 @@ const Registration = () => {
     setPhase(phaseStatus.data().phase);
   }
 
-  const addVoter = async () => {
-
-    console.log(`Voter Added ${currentUser.displayName}`);
-
-    try {
-      await updateDoc(doc(db, "voters", currentUser.email), {
-        aadhar: val1,
-        walletAddr: val2,
-      });
-      console.log("Document written!");
-      setValues();
-    } catch (e) {
-      console.log("Error adding document: ", e);
-    }
-  };
-  
   const setValues = async () => {
     setVal1("");
     setVal2("");
@@ -51,6 +35,24 @@ const Registration = () => {
     else
         console.log("No document exists");
   }
+
+  const addVoter = async (e) => {
+    e.preventDefault();
+
+    console.log(`Voter Added ${currentUser.displayName}`);
+
+    console.log(val1, val2);
+
+    await setDoc(doc(db, "voters", currentUser.email), {
+      name: currentUser.displayName,
+      email: currentUser.email,
+      aadhar: val1,
+      walletAddr: val2,
+      registraition: "unregistered",
+    });
+    console.log("Document written!");
+    setValues();
+  };
 
   const approvedStatus = async () => {
     // Fetch approved Status from Firebase
@@ -71,7 +73,7 @@ const Registration = () => {
   function maskInfo (text) {
     var string = String(text);
     var replaced= string.slice(0, 2) + string.slice(2).replace(/.(?=...)/g, '*');
-    console.log("Replaced:" + replaced);
+    // console.log("Replaced:" + replaced);
     return replaced;
   }
 
@@ -116,7 +118,7 @@ const Registration = () => {
               <div className="registrationFormField">
                 <button
                   className="registrationFormFieldButton"
-                  onClick={e => addVoter(e)}
+                  onClick={addVoter}
                 >
                   Proceed
                 </button>
