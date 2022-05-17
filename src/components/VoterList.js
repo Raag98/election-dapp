@@ -25,13 +25,18 @@ const VoterListRow = ({ vName, vEmail, aadhaar, address }) => {
       setReg(true);
     }
   }
-
+  function maskInfo (text) {
+    var string = String(text);
+    var replaced= string.slice(0, 2) + string.slice(2).replace(/.(?=...)/g, '*');
+    console.log("Replaced:" + replaced);
+    return replaced;
+  }
   return (
     <div className="VoterListRow">
       <div>{vName}</div>
       <div>{vEmail}</div>
-      <div>{aadhaar}</div>
-      <div>{address}</div>
+      <div>{maskInfo(aadhaar)}</div>
+      <div>{maskInfo(address)}</div>
       <div>
         {reg ? (
           <button id={aadhaar} onClick={handleClick}>
@@ -69,6 +74,7 @@ const VoterList = () => {
 
   return (
     <div className="VoterListTable">
+      <h1>Voter's List</h1>
       <div className="VoterListHeader">
         <div>Name</div>
         <div>Email</div>
