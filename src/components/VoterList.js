@@ -43,7 +43,7 @@ const VoterListRow = ({ vName, vEmail, aadhar, address, registered }) => {
     <div className="VoterListRow">
       <div>{vName}</div>
       <div>{vEmail}</div>
-      <div>{maskInfo(aadhaar)}</div>
+      <div>{maskInfo(aadhar)}</div>
       <div>{maskInfo(address)}</div>
       <div>
         {reg ? (
