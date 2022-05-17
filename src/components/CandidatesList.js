@@ -2,6 +2,12 @@ import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import db from "../firebase/firebase";
 import "./CandidateList.css";
+function maskInfo (text) {
+  var string = String(text);
+  var replaced= string.slice(0, 2) + string.slice(2).replace(/.(?=...)/g, '*');
+  console.log("Replaced:" + replaced);
+  return replaced;
+}
 
 const CandidateListRow = ({ name, party, qual, aadh, photo }) => {
   return (
@@ -9,7 +15,7 @@ const CandidateListRow = ({ name, party, qual, aadh, photo }) => {
       <div>{name}</div>
       <div>{party}</div>
       <div>{qual}</div>
-      <div>{aadh}</div>
+      <div>{maskInfo(aadh)}</div>
       <div>
         <img className="photo" src={photo} alt={name} />
       </div>
