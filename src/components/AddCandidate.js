@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "./AddCandidate.css";
-import { setDoc, doc,  } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import db from "../firebase/firebase";
 
 const AddCandidate = () => {
-
   const [name, setName] = useState();
   const [party, setParty] = useState();
   const [qual, setQual] = useState();
@@ -14,7 +13,6 @@ const AddCandidate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await setDoc(doc(db, "candidates", aadhar), {
         name: name,
@@ -30,9 +28,7 @@ const AddCandidate = () => {
       alert("Error : ", e);
       console.log("Error adding document: ", e);
     }
-
-  }
-
+  };
 
   return (
     <div className="AddCandidate">
