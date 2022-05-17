@@ -6,10 +6,6 @@ const Phases = () => {
 
   const [currPhase, setCurrPhase] = useState("Registration");
 
-  useEffect(async () => {
-    
-  }, [currPhase]);
-
   return (
     <div className="Phases">
       <h1>Select a phase</h1>

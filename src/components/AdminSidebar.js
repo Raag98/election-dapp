@@ -47,6 +47,9 @@ export default function AdminSidebar() {
                 <Link to="/admin-dashboard/phases">
                   <li className="menu-item">Phase</li>
                 </Link>
+                <Link to="/admin-dashboard/candidates-list">
+                  <li className="menu-item">Candidates List</li>
+                </Link>
                 <Link to="/">
                   <li className="menu-item" onClick={logout}>
                     Logout
