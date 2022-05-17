@@ -58,8 +58,18 @@ const Registration = () => {
         console.log("No document exists");
   }
 
+  const approvedStatus = async () => {
+    // Fetch approved Status from Firebase
+    const appr = await getDoc(doc(db, "voters", currentUser.email));
+
+    if (appr.data().registraition === "registered") setApproved(true);
+
+    console.log(approved);
+  };
+
   useEffect(() => {
     getPhase();
+    approvedStatus();
     setName(currentUser.displayName);
     setValues();
   }, []);
