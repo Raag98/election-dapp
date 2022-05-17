@@ -43,13 +43,8 @@ const VoterListRow = ({ vName, vEmail, aadhar, address, registered }) => {
     <div className="VoterListRow">
       <div>{vName}</div>
       <div>{vEmail}</div>
-<<<<<<< HEAD
       <div>{maskInfo(aadhaar)}</div>
       <div>{maskInfo(address)}</div>
-=======
-      <div>{aadhar}</div>
-      <div>{address}</div>
->>>>>>> 97376a31e677a84a8dc0a99f00e19e45f2f2f419
       <div>
         {reg ? (
           <button onClick={handleClick}>
