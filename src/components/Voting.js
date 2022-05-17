@@ -1,4 +1,4 @@
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext';
 import db from '../firebase/firebase';
@@ -6,7 +6,7 @@ import "./Voting.css"
 // import web3 from "../Web3Client";
 // import instance from "./Vote";
 
-const Candidate = ({name, party, qual, image, votes, id}) => {
+const Candidate = ({name, party, image}) => {
 
     const [status, setStatus] = useState("not-voted");
 
@@ -23,12 +23,16 @@ const Candidate = ({name, party, qual, image, votes, id}) => {
     return (
       <tr>
         <td>
-          <img src={image} className="candidate-img" />
+          <img src={image} className="candidate-img" alt={name} />
         </td>
         <td>{name.toUpperCase()}</td>
         <td>{party.toUpperCase()}</td>
         <td>
-          <button onClick={vote} value={status} />
+         {
+            status === "not-voted"
+            ? <button onClick={vote}> Vote </button>
+            : <button disabled> Vote </button>
+         }
         </td>
       </tr>
     );
@@ -43,18 +47,17 @@ const Voting = () => {
 
     const { currentUser } = useAuth();
 
-    const getCandidates = async () => {
+    const getCandidates = async (e) => {
 
-      const candidates = await getDoc(collection(db, "candidates"));
+      const candidatesList = await getDocs(collection(db, "candidates"));
 
-      var temp = [];
-      candidates.forEach(d => {
+      const temp = [];
+      candidatesList.forEach((d) => {
+        console.log(d.data());
         temp.push(d.data());
       });
 
       setCandList(temp);
-
-      console.log(candList);
     };
 
     const approvedStatus = async () => {
@@ -64,7 +67,7 @@ const Voting = () => {
         if(appr.data().registraition === "registered")
           setApproved(true);
 
-        console.log(approved);
+        // console.log(approved);
     }
 
     const getPhase = async () => {
@@ -73,14 +76,12 @@ const Voting = () => {
         const phaseStat = await getDoc(doc(db, "phase", "current-phase"));
 
         setPhase(phaseStat.data().phase);
-
-        console.log(phase);
     };
 
-    const [account, setAccount] = useState();
-    const [manager, setManager] = useState();
-    const [count, setCount] = useState();
-    const [list, setList] = ([]);
+    // const [account, setAccount] = useState();
+    // const [manager, setManager] = useState();
+    // const [count, setCount] = useState();
+    // const [list, setList] = ([]);
 
     // const getAccounts = async () => {
     //   const acc = await web3.eth.getAccounts();
@@ -101,9 +102,9 @@ const Voting = () => {
 
 
     useEffect(() => {
+        getCandidates();
         getPhase();
         approvedStatus();
-        getCandidates();
 
         // getAccounts();
     }, []);
@@ -126,7 +127,6 @@ const Voting = () => {
                     <Candidate
                         name={d.name}
                         party={d.party}
-                        qual={d.qual}
                         image={d.image}
                     />
                 )
