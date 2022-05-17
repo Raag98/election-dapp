@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { getDoc, doc, collection } from 'firebase/firestore';
+import { getDocs, getDoc, doc, collection } from 'firebase/firestore';
 import db from '../firebase/firebase';
 import './Results.css';
-const ResultsRow = ({name, party, photo, votes}) => {
 
+const ResultsRow = ({name, party, photo, votes}) => {
   return (
     <div className="ResultsListRow">
       <div>{name}</div>
       <div>{party}</div>
-      <div>{photo}</div>
+      <div><img src={photo} alt={name} /></div>
       <div>{votes}</div>
     </div>
   );
@@ -30,15 +30,14 @@ export default function Results() {
 
   const getResults = async () => {
 
-    const resList = await getDoc(collection(db, "candidates"));
+    const resList = await getDocs(collection(db, "candidates"));
 
     var temp = [];
-    resList.forEach(d => {
+    resList.forEach((d) => {
       temp.push(d.data());
     })
 
     setResults(temp);
-    console.log(results);
   };
 
   useEffect(() => {
@@ -59,7 +58,7 @@ export default function Results() {
           return (
             <ResultsRow
               name={d.name}
-              party={d.email}
+              party={d.party}
               photo={d.photo}
               votes={d.votes}
             />
