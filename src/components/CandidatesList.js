@@ -41,6 +41,7 @@ export default function CandidatesList() {
 
   return (
     <div className="CandidateListTable">
+      <h1> Candidate's List </h1>
       <div className="CandidateListHeader">
         <div>Name</div>
         <div>Party</div>
