@@ -1,19 +1,32 @@
+.VoterListTable h1 {
+    color: rgb(141, 217, 252);
+    text-transform: uppercase;
+    text-align: center;
+}
 .VoterListTable {
-    margin: 1em ;
+    background: #12130f;
+    /* margin: 1em ; */
+    padding: 1em;
     display: flex;
     flex-direction: column;
-    width: -webkit-fill-available;
+    width:  -webkit-fill-available;
 }
 
 .VoterListHeader,
 .VoterListRow {
     display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid;
+    border-color: #6b5b95;
 }
 
 .VoterListHeader div,
 .VoterListRow div {
     flex: 1;
-    padding: 0.2rem 0.4em;
+    padding: 0.1rem 0.3em;
     border: 1px solid #12130f;
 }
 
