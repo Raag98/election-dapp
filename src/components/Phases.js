@@ -20,8 +20,8 @@ const Phases = () => {
 
   return (
     <div className="Phases">
-      <h1>Current Phase: {currPhase}</h1>
       <h1>Select a phase</h1>
+      <h3>Current Phase: {currPhase}</h3>
       <button
         value="registration"
         onClick={(e) => setCurrPhase(e.target.value)}
