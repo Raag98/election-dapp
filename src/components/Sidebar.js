@@ -39,7 +39,7 @@ export default function Sidebar() {
           <div className="sidebar-content">
             <nav className="menu open-current-submenu">
               <ul>
-                <Link to="/">
+                <Link to="/dashboard/">
                   <li className="menu-item">Registration</li>
                 </Link>
                 <Link to="/dashboard/voting">

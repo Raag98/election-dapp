@@ -13,6 +13,7 @@ const Candidate = ({name, party, qual, image, votes, id}) => {
             alert("Already Voted!");
         else {
             // Update Firebase
+            console.log("Voted!")
             setStatus("voted");
         }
     }
@@ -25,9 +26,8 @@ const Candidate = ({name, party, qual, image, votes, id}) => {
         <td>{name.toUpperCase()}</td>
         <td>{party.toUpperCase()}</td>
         <td>
-          <button value={status} />
+          <button onClick={vote} value={status} />
         </td>
-        {/* onClick={vote} */}
       </tr>
     );
 }
@@ -48,17 +48,21 @@ const Voting = () => {
       const temp = [];
       candidates.forEach(d => {
         temp.push(d.data());
-      })
+      });
 
       setCandList(temp);
-    }
+
+      console.log(candList);
+    };
 
     const approvedStatus = async () => {
         // Fetch approved Status from Firebase
         const appr = await getDoc(doc(db, "voters", currentUser.email));
 
-        if(appr.data().registration === "registered")
+        if(appr.data().registraition === "registered")
           setApproved(true);
+
+        console.log(approved);
     }
 
     const getPhase = async () => {
@@ -67,6 +71,8 @@ const Voting = () => {
         const phaseStat = await getDoc(doc(db, "phase", "current-phase"));
 
         setPhase(phaseStat.data().phase);
+
+        console.log(phase);
     };
 
     useEffect(() => {
@@ -101,7 +107,7 @@ const Voting = () => {
             </table>
           </div>
         ) : (
-          approved === "false" 
+          approved === false 
           ? ( <h2 className="unreg-text">You haven't Registered! You can't Vote</h2> )  
           : ( <h2 className="unreg-text">Voting Phase is yet to Start / is Over!</h2> )
         )}

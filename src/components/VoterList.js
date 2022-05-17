@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { getDocs, collection, setDoc, doc } from "firebase/firestore";
+import { getDocs, collection, setDoc, doc, getDoc } from "firebase/firestore";
 import db from "../firebase/firebase";
 import "./VoterList.css";
 
-const VoterListRow = ({ vName, vEmail, aadhaar, address }) => {
+const VoterListRow = ({ vName, vEmail, aadhar, address, registered }) => {
 
-  const [reg, setReg] = useState(true);
+  const [reg, setReg] = useState((registered === "unregistered") ? true : false);
 
   const handleClick = async (e) => {
     e.preventDefault();
 
     if(reg) {
       await setDoc(doc(db, "voters", vEmail), {
+        aadhar: aadhar,
+        email: vEmail,
+        name: vName,
+        walletAddr: address,
         registraition: "registered",
       });
       console.log(`${vName} registered!`);
@@ -19,6 +23,10 @@ const VoterListRow = ({ vName, vEmail, aadhaar, address }) => {
     }
     else {
       await setDoc(doc(db, "voters", vEmail), {
+        aadhar: aadhar,
+        email: vEmail,
+        name: vName,
+        walletAddr: address,
         registraition: "unregistered",
       });
       console.log(`${vName} unregistered!`);
@@ -30,15 +38,15 @@ const VoterListRow = ({ vName, vEmail, aadhaar, address }) => {
     <div className="VoterListRow">
       <div>{vName}</div>
       <div>{vEmail}</div>
-      <div>{aadhaar}</div>
+      <div>{aadhar}</div>
       <div>{address}</div>
       <div>
         {reg ? (
-          <button id={aadhaar} onClick={handleClick}>
+          <button onClick={handleClick}>
             Register
           </button>
         ) : (
-          <button id={aadhaar} onClick={handleClick}>
+          <button onClick={handleClick}>
             Unregister
           </button>
         )}
@@ -82,8 +90,9 @@ const VoterList = () => {
             <VoterListRow 
               vName={rowData.name}
               vEmail={rowData.email}
-              aadhaar={rowData.aadhaar}
+              aadhar={rowData.aadhar}
               address={rowData.walletAddr}
+              registered={rowData.registraition}
             />            
           )})
         }
