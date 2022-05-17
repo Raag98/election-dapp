@@ -21,6 +21,7 @@ const AddCandidate = () => {
         aadhar: aadhar,
         walletAddr: wallet,
         photo: photo,
+        votes: 0,
       });
       alert("Candidate Added Successfully");
       // console.log("Candidate Added Successfully");

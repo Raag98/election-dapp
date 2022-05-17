@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import db from "../firebase/firebase";
 import "./Registration.css";
 
@@ -27,6 +27,7 @@ const Registration = () => {
     console.log(`Voter Added ${currentUser.displayName}`);
 
     try {
+      await deleteDoc(doc(db, "voters", currentUser.email));
       await setDoc(doc(db, "voters", currentUser.email), {
         name: currentUser.displayName,
         email: currentUser.email,
