@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getDoc, doc, collection } from 'firebase/firestore';
 import db from '../firebase/firebase';
-
+import './Results.css';
 const ResultsRow = ({name, party, photo, votes}) => {
 
   return (
