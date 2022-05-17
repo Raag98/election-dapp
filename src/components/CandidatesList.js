@@ -1,6 +1,6 @@
-import { collection, getDocs } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
-import db from '../firebase/firebase';
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import db from "../firebase/firebase";
 import "./CandidateList.css";
 
 const CandidateListRow = ({ name, party, qual, aadh, photo }) => {
@@ -49,8 +49,14 @@ export default function CandidatesList() {
         <div>Photo</div>
       </div>
       <div className="CandidateListBody">
-        {candid.map((rowData) => (
-          <CandidateListRow {...rowData} />
+        {candid.map((d) => (
+          <CandidateListRow
+            name={d.name}
+            party={d.party}
+            qual={d.qualification}
+            aadh={d.aadhar}
+            photo={d.photo}
+          />
         ))}
       </div>
     </div>
