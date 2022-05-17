@@ -15,6 +15,12 @@
     text-transform: uppercase;
     text-align: center;
 }
+.Phases h3 {
+    margin-top: 20px;
+    color: rgb(141, 217, 252);
+    text-transform: uppercase;
+    text-align: center;
+}
 
 .Phases button {
     background-color: #6b5b95;
