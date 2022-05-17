@@ -16,16 +16,13 @@ const Registration = () => {
   const [val1, setVal1] = useState("");
   const [val2, setVal2] = useState("");
 
-  const getPhase = async (e) => {
-    e.preventDefault();
-
+  const getPhase = async () => {
     const phaseStatus = await getDoc(doc(db, "phase", "current-phase"));
 
     setPhase(phaseStatus.data().phase);
   }
 
-  const addVoter = async (e) => {
-    e.preventDefault();
+  const addVoter = async () => {
 
     console.log(`Voter Added ${currentUser.displayName}`);
 
@@ -64,7 +61,6 @@ const Registration = () => {
 
     if (appr.data().registraition === "registered") setApproved(true);
 
-    console.log(approved);
   };
 
   useEffect(() => {
@@ -72,6 +68,7 @@ const Registration = () => {
     approvedStatus();
     setName(currentUser.displayName);
     setValues();
+
   }, []);
 
   function maskInfo (text) {
