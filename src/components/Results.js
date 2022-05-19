@@ -48,24 +48,30 @@ export default function Results() {
   return (
     <div className="ResultTable">
       <h1>Results</h1>
-      <div className="ResultListHeader">
-        <div>Name</div>
-        <div>Party</div>
-        <div>Photo</div>
-        <div>Votes</div>
-      </div>
-      <div className="ResultListBody">
-        {results.map((d) => {
-          return (
-            <ResultsRow
-              name={d.name}
-              party={d.party}
-              photo={d.photo}
-              votes={d.votes}
-            />
-          );
-        })}
-      </div>
+      {phase !== "results" ? (
+        <h1>Results Phase not started! </h1>
+      ) : (
+        <>
+          <div className="ResultListHeader">
+            <div>Name</div>
+            <div>Party</div>
+            <div>Photo</div>
+            <div>Votes</div>
+          </div>
+          <div className="ResultListBody">
+            {results.map((d) => {
+              return (
+                <ResultsRow
+                  name={d.name}
+                  party={d.party}
+                  photo={d.photo}
+                  votes={d.votes}
+                />
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }
