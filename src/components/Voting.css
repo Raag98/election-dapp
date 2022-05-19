@@ -76,7 +76,7 @@
 }
 
 
-.CandidateListRow .photo {
+.CandidateListRow .candidate-img {
   width: 100px;
   height: 100px;
   border-radius: 10%;
@@ -85,3 +85,28 @@
   object-position: center right;
 }
 
+.enabledBtn {
+	box-shadow: 0px 1px 0px 0px #1c1b18;
+	/* background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%); */
+	background-color:green;
+	border-radius:10px;
+	display:inline-block;
+	cursor:pointer;
+	color:white;
+    font-weight: bold;
+    border: 1px solid green;
+	padding:7px 10px;
+    color: white;
+	
+}
+.disabledBtn {
+	box-shadow: 0px 1px 0px 0px #1c1b18;
+	background-color: grey;
+	border-radius:10px;
+	display:inline-block;
+	cursor:pointer;
+	color: darkgray;
+    border: 1px solid gray;
+    font-weight: bold;
+	padding:7px 10px;	
+}

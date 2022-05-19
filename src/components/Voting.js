@@ -32,9 +32,9 @@ const CandidateListRow = ({name, party, image, aadhar, qual, votes, wallet, stat
       <div>{party.toUpperCase()}</div>
       <div>
         {status === "not-voted" ? (
-          <button onClick={vote}> Vote </button>
+          <button className='enabledBtn' onClick={vote}> Vote </button>
         ) : (
-          <button disabled> Vote </button>
+          <button className='disabledBtn' disabled> Vote </button>
         )}
       </div>
     </div>
@@ -125,7 +125,7 @@ const Voting = () => {
             {candList.map((d) => (
               <CandidateListRow name={d.name}
               party={d.party}
-              image={d.image}
+              image={d.photo}
               aadhar={d.aadhar}
               qual={d.qualification}
               votes={d.votes}
